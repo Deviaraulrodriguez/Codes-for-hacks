@@ -1,0 +1,28 @@
+Sub ProgressBar()
+On Error Resume Next
+With ActivePresentation
+sHeight = .PageSetup.SlideHeight - 12
+sWidth = 959
+n = 0
+For x = 1 To ActivePresentation.Slides.Count
+ActivePresentation.Slides(x).Shapes("PB").Delete
+If .Slides(x).SlideShowTransition.Hidden = False Then
+n = n + 1
+Set s = .Slides(x).Shapes.AddShape(msoShapeRightArrow, _
+0, .PageSetup.SlideHeight - 12, _
+x * ((sWidth + 270) / ActivePresentation.Slides.Count), 12)
+End If
+With s
+s.Fill.ForeColor.RGB = RGB(237, 125, 49)
+s.Line.ForeColor.RGB = RGB(237, 125, 49)
+If x = 1 Then
+s.Top = 355.5
+s.Width = sWidth
+Else
+s.Top = 116.5
+End If
+End With
+s.Name = "PB"
+Next x:
+End With
+End Sub
